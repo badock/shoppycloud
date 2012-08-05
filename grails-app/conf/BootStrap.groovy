@@ -37,9 +37,11 @@ class BootStrap {
 			// STORE INFORMATION
 			Shop thisStore = new Shop(id:1, name:"Boutique de test1", account:firstAccount, domain:"app1", slogan:"Welcome in our Shop(1)", shortDescription:"We sell a lot of different products. Please take a look at them and do not hesitate to contact us!").save(failOnError: true)
 			
+			
+			
 			// <store1>
 			// PRODUCT LIST
-			Shop.withTenantId(1) {
+			thisStore.withThisTenant {
 				
 					ProductClass computerCategory = new ProductMainClass(name:"Computer").save(failOnError: true)
 					ProductClass notebookCategory = new ProductSubClass(name:"Notebook", parentClass:computerCategory).save(failOnError: true)
@@ -55,7 +57,7 @@ class BootStrap {
 					def prod3 = new Product(name:"BasicComputer", price:799.99, category:computerCategory, markdownDescription:descriptionProduct, pictureUrl:"http://pc.watch.impress.co.jp/docs/2004/0420/apple2.jpg", technicalSpecs:"Abundans ignorantes et ignorantes possint frumenti capi multiplices sustentantur siquae", description:"Latius iam disseminata licentia onerosus bonis omnibus Caesar nullum post haec adhibens modum orientis latera cuncta vexabat nec honoratis parcens nec urbium primatibus nec plebeiis.").save(failOnError: true)
 			
 					
-					// USER AUTHENTICATION
+//					// USER AUTHENTICATION
 					def userRole = Role.findByAuthority('ROLE_USER') ?: new Role(authority: 'ROLE_USER').save(failOnError: true)
 					def memberRole = Role.findByAuthority('ROLE_MEMBER') ?: new Role(authority: 'ROLE_MEMBER').save(failOnError: true)
 					def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
@@ -116,7 +118,7 @@ class BootStrap {
 			
 			Shop secondStore = new Shop(id:2, name:"Boutique de test2", account:secondAccount, domain:"app2", slogan:"Welcome in our Shop(2)", shortDescription:"We sell a lot of different products. Please take a look at them and do not hesitate to contact us!").save(failOnError: true)
 			
-			Shop.withTenantId(2) {
+			secondStore.withThisTenant {
 				
 					ProductClass computerCategory = new ProductMainClass(name:"Computer").save(failOnError: true)
 					ProductClass notebookCategory = new ProductSubClass(name:"Notebook", parentClass:computerCategory).save(failOnError: true)
@@ -131,6 +133,21 @@ class BootStrap {
 					new Product(name:"PowerBook", price:1499.99, category:notebookCategory, markdownDescription:descriptionProduct, pictureUrl:"http://pc.watch.impress.co.jp/docs/2004/0420/apple2.jpg", technicalSpecs:"Abundans ignorantes et ignorantes possint frumenti capi multiplices sustentantur siquae", description:"Latius iam disseminata licentia onerosus bonis omnibus Caesar nullum post haec adhibens modum orientis latera cuncta vexabat nec honoratis parcens nec urbium primatibus nec plebeiis.").save(failOnError: true)
 					new Product(name:"BasicComputer", price:799.99, category:computerCategory, markdownDescription:descriptionProduct, pictureUrl:"http://pc.watch.impress.co.jp/docs/2004/0420/apple2.jpg", technicalSpecs:"Abundans ignorantes et ignorantes possint frumenti capi multiplices sustentantur siquae", description:"Latius iam disseminata licentia onerosus bonis omnibus Caesar nullum post haec adhibens modum orientis latera cuncta vexabat nec honoratis parcens nec urbium primatibus nec plebeiis.").save(failOnError: true)
 			
+					
+					// USER AUTHENTICATION
+					def userRole = Role.findByAuthority('ROLE_USER') ?: new Role(authority: 'ROLE_USER').save(failOnError: true)
+					def memberRole = Role.findByAuthority('ROLE_MEMBER') ?: new Role(authority: 'ROLE_MEMBER').save(failOnError: true)
+					def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
+					def customerRole = Role.findByAuthority('ROLE_CUSTOMER') ?: new Role(authority: 'ROLE_CUSTOMER').save(failOnError: true)
+			
+			        def adminUser = new User(
+			                username: 'admin',
+			                password: 'admin',
+			                enabled: true).save(failOnError: true)
+			        // </store1>
+			
+			        new UserRole(user:adminUser, role:adminRole).save(failOnError: true)
+					
 			}
 		}
 		// AUTHENTICATION: app1

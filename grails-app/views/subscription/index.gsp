@@ -25,111 +25,99 @@
 	
 	function doCheckEmail() {
 
-		email = $("#input_email").val();
+		email = $("#input-email").val();
 		var xdr = getXDomainRequest();
 		xdr.onload = function() {
 			var data = xdr.responseText;
 			var jsonData = jQuery.parseJSON(data);
 			
 			if(jsonData.result) {
-				$("#input_email").val(email);
-				$("#span_email_check").text(email);
-				impress().goto("choose-domain");
+				$("#control-group-email").removeClass("error")
+				$("#control-group-email").addClass("success")
 			}
 			else {
-				alert("The email is already used!");
+				$("#control-group-email").removeClass("success")
+				$("#control-group-email").addClass("error")
 			}
 		}
 
-		xdr.open("GET", "/subscription/checkemail/"+$("#input_email").val());
-		xdr.send();
+		xdr.open("GET", "/subscription/checkemail/"+$("#input-email").val());
+
+		if(email.length>2) {
+			xdr.send();
+		}
 	}
 
 	function doCheckDomain() {
 
-		domain = $("#input_domain").val();
+		domain = $("#input-domain").val();
 		var xdr = getXDomainRequest();
 		xdr.onload = function() {
 			var data = xdr.responseText;
 			var jsonData = jQuery.parseJSON(data);
 
 			if(jsonData.result) {
-				$("#input_domain").val(domain);
-				$("#span_domain_check").text(domain);
-				impress().goto("last-checking");
+				$("#control-group-domain").removeClass("error")
+				$("#control-group-domain").addClass("success")
 			}
 			else {
-				alert("The domain name already exist!");
+				$("#control-group-domain").removeClass("success")
+				$("#control-group-domain").addClass("error")
 			}
 		}
 
-		xdr.open("GET", "/subscription/checkdomain/"+$("#input_domain").val());
-		xdr.send();
-		
+		xdr.open("GET", "/subscription/checkdomain/"+$("#input-domain").val());
+
+		if(domain.length>2) {
+			xdr.send();
+		}		
 	}
 
 	function doCheckFinal() {
 
-		domain = $("#input_domain").val();
+		domain = $("#input-domain").val();
 		var xdr = getXDomainRequest();
 		xdr.onload = function() {
 			var data = xdr.responseText;
 			var jsonData = jQuery.parseJSON(data);
 			
 			if(jsonData.result) {
-				impress().goto("congratulations")
 			}
 			else {
 				alert("An error occured during the creation of your account.");
+				doCheckEmail();
+				doCheckDomain();
 			}
 		}
 
-		xdr.open("GET", "/subscription/checkoverall/"+$("#input_email").val()+"-"+$("#input_domain").val());
-		xdr.send();
-		
+		xdr.open("GET", "/subscription/checkoverall/"+$("#input-email").val()+"-"+$("#input-domain").val());
+
+		if(domain.length>2) {
+			xdr.send();
+		}		
 	}
 	
 </script>
 </head>
 <body>
-	<div id="impress">
-	
-		<div id="welcome" class="step" data-x="-1500" data-y="2500">
-			<div id="cloud"><span class="shadow"></span></div>
-			<q><b>Try it now!</b></q>
-			<br/>
-			<input id="input_email" type="text" style="font-size:35px; width:550px;" placeholder="email"/>
-			<a style="margin-left: 10px;" onclick="doCheckEmail();">go!</a>
-		</div>
-		
-		<div id="choose-domain" class="step" data-x="0" data-y="0" data-scale="4">
-			<span class="try"><b>now choose a subdomain</b></span>
-			<h1>
-				<input id="input_domain" type="text" style="font-size:35px;" placeholder="subdomain"/>.shoppycloud.com
-			</h1>
-			<a onclick="doCheckDomain();">validate!</a>
-		</div>
-		
-		<div id="last-checking" class="step" data-x="1050" data-y="4500" data-rotate="90"
-			data-scale="5">
-			<span class="try"><b>Are those information correct?</b></span>
-			<h1>
-				your email is <span id="span_email_check"></span>
-				and you want <span id="span_domain_check"></span>.shoppycloud.com
-			</h1>
-			<a onclick="doCheckFinal();">I confirm!</a>
-		</div>
-		
-		<div id="congratulations" class="step" data-x="1500" data-y="15000" data-rotate="90"
-			data-scale="5">
-			<p style="text-align:center;">
-				<b>Congratulations!</b>
-				<br/>
-				You will receive soon an email with a link to your shop!
-				<br/>
-			</p>
-		</div>
 
+	<div class="main-content">
+		<h1>Create your ecommerce website in less than 5 minutes
+			<small>: Create an account and select an available name for your store... congratulations, you are ready for the ecommerce!</small>
+		</h1>
+		
+		<div class="creation-form-div well">
+			<div id="control-group-domain" class="control-group">
+				<input id="input-domain" type="text" class="input-xlarge" placeholder="Your store name" onblur="doCheckDomain();"/>
+			</div>
+			<br/>
+			<div id="control-group-email" class="control-group">
+				<input id="input-email" type="text" class="input-xlarge" placeholder="Your email adress" onblur="doCheckEmail();"/>
+			</div>
+			<br/>
+			<a class="btn btn-success btn-large" onclick="doCheckFinal();">Create your store now!</a>
+		</div>
 	</div>
+
 </body>
 </html>

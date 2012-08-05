@@ -53,8 +53,8 @@ class SubscriptionController {
 		render obj	
 	}
 	
-	def doRegister() {
-		subscriptionService.computeRegistration(params.email, params.domain)
-		redirect(url:"http://"+params.domain+"."+CH.config.grails.domainURL)
-	}
+//	def doRegister() {
+//		subscriptionService.computeRegistration(params.email, params.domain)
+//		redirect(url:"http://"+params.domain+"."+CH.config.grails.domainURL)
+//	}
 }

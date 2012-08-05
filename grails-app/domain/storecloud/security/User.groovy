@@ -15,8 +15,9 @@ class User {
 	boolean passwordExpired
 
 	static constraints = {
-		username blank: false, unique: true
+		username blank: false
 		password blank: false
+		username unique: 'tenantId'
 	}
 
 	static mapping = {

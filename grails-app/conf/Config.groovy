@@ -108,3 +108,16 @@ multiTenant {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'storecloud.security.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'storecloud.security.UserRole'
 grails.plugins.springsecurity.authority.className = 'storecloud.security.Role'
+
+grails {
+	mail {
+	host = "smtp.gmail.com"
+	port = 465
+	username = "shoppycloud@gmail.com"
+	password = "badockbadock"
+	props = ["mail.smtp.auth":"true",
+	"mail.smtp.socketFactory.port":"465",
+	"mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+	"mail.smtp.socketFactory.fallback":"false"]
+	}
+}

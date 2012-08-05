@@ -12,6 +12,7 @@ class Role {
 	}
 
 	static constraints = {
-		authority blank: false, unique: true
+		authority blank: false
+		authority unique: 'tenantId'
 	}
 }

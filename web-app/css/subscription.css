@@ -1,3 +1,8 @@
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
 .navbar-inner {
 	min-height: 120px;
 	padding-right: 20px;
@@ -38,73 +43,16 @@
 	margin-top: 20px;
 }
 
-/* The cloud */
-
-div#cloud {
-	width: 350px;
-	height: 120px;
-	
-	background: #f2f9fe;
-	background: -moz-linear-gradient(top,  #f2f9fe 5%, #d6f0fd 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(5%,#f2f9fe), color-stop(100%,#d6f0fd));
-	background: -webkit-linear-gradient(top,  #f2f9fe 5%,#d6f0fd 100%);
-	background: -o-linear-gradient(top,  #f2f9fe 5%,#d6f0fd 100%);
-	background: -ms-linear-gradient(top,  #f2f9fe 5%,#d6f0fd 100%);
-	background: linear-gradient(top,  #f2f9fe 5%,#d6f0fd 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f9fe', endColorstr='#d6f0fd',GradientType=0 );
-
-	position: relative;
-	margin: 120px auto 20px;
-	
-	-webkit-border-radius: 100px;
-	-moz-border-radius: 100px;
-	border-radius: 100px;
+/* Main Content */
+.main-content {
+	margin: 40px;
 }
 
-div#cloud:after, div#cloud:before {
-	content: '';
-	position: absolute;
-	z-indeX: -1;
-	background: #f2f9fe;
+.control-group {
+	margin-bottom: 0px;
 }
 
-div#cloud:after {
-	width: 100px;
-	height: 100px;
-	
-	-webkit-border-radius: 100px;
-	-moz-border-radius: 100px;
-	border-radius: 100px;
-
-	top: -50px;
-	left: 50px;
+.creation-form-div {
+	text-align: center;
+	min-width: 400px;
 }
-
-div#cloud:before {
-	width: 180px;
-	height: 180px;
-	
-	-webkit-border-radius: 200px;
-	-moz-border-radius: 200px;
-	border-radius: 200px;
-
-	top: -90px;
-	right: 50px;
-}
-
-span.shadow {
-	width: 350px;
-	position: absolute;
-	bottom: -10px;
-	background: black;
-	z-index: -1;
-	
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-	
-	-webkit-box-shadow: 0px 0px 25px 8px rgba(0,0,0,0.4);
-	-moz-box-shadow: 0px 0px 25px 8px rgba(0,0,0,0.4);
-	box-shadow: 0px 0px 25px 8px rgba(0,0,0,0.4);
-}
-	

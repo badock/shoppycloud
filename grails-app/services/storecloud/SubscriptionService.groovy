@@ -26,6 +26,7 @@ class SubscriptionService {
 		try {
 			sendMail {
 				to      "${email}"
+				from 	"registration@shoppycloud.com"
 				subject "Your e-shop is available"
 				html    message
 			}
