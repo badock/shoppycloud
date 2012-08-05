@@ -1,6 +1,10 @@
 package storecloud
 
+import grails.converters.JSON;
+
 class StoreController {
+	
+	def customerService
 		
 	def index() {
 		render(view:"index", model: [controllerIndex:0, store:Shop.findById(request.store), categories: ProductMainClass.list()])
@@ -144,8 +148,48 @@ class StoreController {
 		render(view:"bad_request",  model: [controllerIndex:0, store:Shop.findById(request.store), categories: ProductMainClass.list()])
 	}
 	
-	def subscribe() { 
+	def checkcustomeremail() {
+		def obj
+		if(!customerService.exist(params.id))
+			obj = [result:true] as JSON
+		else
+			obj = [result:false] as JSON
+			
+		render obj
+	}
+	
+	def doRegistration() {
 		
+		def customer = null
+		
+		try {
+			customer = customerService.createCustomer(params.email, "password", params.firstname, params.lastname, params.address, params.city, params.postalcode, params.country, Shop.findById(request.store))
+		}
+		catch (Exception e) {
+			log.println(e.toString())
+		}
+		
+		if(customer==null) {
+			
+			def email = params.email
+			
+			def firstname = params.firstname
+			def lastname = params.lastname
+			def address = params.address
+			def city = params.city
+			def postalcode = params.postalcode
+			def country = params.country
+			
+			render(view:"register",  model: [controllerIndex:0, store:Shop.findById(request.store), categories: ProductMainClass.list(), email:"", firstname:firstname, lastname:lastname, address:address, city:city, postalcode:postalcode, country:country])
+		}
+		else {			
+			render(view:"registered",  model: [controllerIndex:0, store:Shop.findById(request.store), categories: ProductMainClass.list()])
+		}
+	}
+	
+	def register() {
+		
+		render(view:"register",  model: [controllerIndex:0, store:Shop.findById(request.store), categories: ProductMainClass.list()])
 	}
 	
 	private void updateCartSize() {

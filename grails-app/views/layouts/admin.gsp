@@ -119,6 +119,11 @@
 					Sub classes
 				</g:link>
 			</li>
+			<li>
+				<g:link class="list" controller="customer" action="list">
+					Customers
+				</g:link>
+			</li>
     	</ul>
 	</div>
 	
