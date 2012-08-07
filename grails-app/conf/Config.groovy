@@ -69,8 +69,8 @@ environments {
 	}
 	production {
 		grails.logging.jul.usebridge = false
-		grails.serverURL = "http://storeapp.com"
-		grails.domainURL = "storeapp.com"
+		grails.serverURL = "http://shoppycloud.com:8080"
+		grails.domainURL = "shoppycloud.com:8080"
 		// TODO: grails.serverURL = "http://www.changeme.com"
 	}
 }

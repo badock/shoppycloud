@@ -5,6 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class SubscriptionService {
 
+	def grailsApplication
+	
 	def accountService
 	def shopService
 
@@ -20,7 +22,7 @@ class SubscriptionService {
 			statusShop -> shopService.createShop(domain, ShoppyAccount.findByEmail(email))
 		}
 		
-		def url = "http://"+domain+".storeapp.com:8080"
+		def url = "http://"+domain+".${grailsApplication.config.grails.domainURL}"
 		def message = "<h1>Your shop is ready!</h1><br/>visit this link to access it: <a href=\"${url}\">${url}</a>"
 		
 		try {
