@@ -26,14 +26,19 @@ class CustomTenantResolver implements TenantResolver {
 //                // don't do this unless you know what you're doing! 
 //                return null  
 //        }
-		def storeName = request.serverName.substring(0, request.serverName.indexOf("."))
 		
-		if((storeName.equals("storeapp") || storeName.equals("localhost"))) {
+		def truc = request.serverName.count(".")
+		
+		if(request.serverName.count(".") != 2) {
+			
 			request.store = 0
 			request.domain = "StoreApp"
 			return 0
+			
 		}
 		else {
+			
+			def storeName = request.serverName.substring(0, request.serverName.indexOf("."))
 			
 			Shop s = Shop.find("from Shop as e where e.domain = '"+storeName+"'")
 			request.store = s.id
