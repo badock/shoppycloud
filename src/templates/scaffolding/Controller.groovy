@@ -2,6 +2,7 @@
 
 class ${className}Controller {
 	
+	def grailsApplication
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	
 	def getListWithTenant() {
@@ -19,7 +20,8 @@ class ${className}Controller {
 	}
 	
 	def toUrlWithTenant(blob) {
-		String result = "http://"+request.serverName.substring(0, request.serverName.indexOf("."))+".storeapp.com:8080/${className}"+"/"
+		def url_server = grailsApplication.config.grails.domainURL
+		String result = "http://"+request.serverName.substring(0, request.serverName.indexOf("."))+"."+url_server+"/${className}"+"/"
 		if(blob.action)
 			result += blob.action
 		if(blob.id)
