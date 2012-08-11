@@ -21,7 +21,7 @@ import storecloud.security.UserRole;
 class LoginController {
 	
 	def toUrlWithTenant(blob) {
-		String result = "http://"+request.serverName.substring(0, request.serverName.indexOf("."))+".storeapp.com:8080/login"+"/"
+		String result = "http://"+request.serverName.substring(0, request.serverName.indexOf("."))+"."+grailsApplication.config.grails.domainURL+"/login"+"/"
 		if(blob.action)
 			result += blob.action
 		if(blob.id)
