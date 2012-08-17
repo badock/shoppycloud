@@ -28,8 +28,23 @@
 			<div class="hero-unit">
 			  <h1>${store.slogan }</h1>
 			  <p>${store.shortDescription }</p>
+			  
+<%--			  <div id="myCarousel" class="carousel slide">--%>
+<%--				  <!-- Carousel items -->--%>
+<%--				  <div class="carousel-inner">--%>
+<%--				    <div class="active item">…</div>--%>
+<%--				    <div class="item">…</div>--%>
+<%--				    <div class="item">…</div>--%>
+<%--				  </div>--%>
+<%--				  <!-- Carousel nav -->--%>
+<%--				  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>--%>
+<%--				  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>--%>
+<%--				</div>--%>
+			  
 			  <p><g:link class="btn btn-primary btn-large" controller="store" action="show">Visit the store</g:link></p>
 			</div>
+			
+			
 			<div class="row-fluid">
 			  <div class="span4">
 			    <h2>Secure payment</h2>
@@ -47,6 +62,43 @@
 			    <p><a class="btn" href="#">View details &raquo;</a></p>
 			  </div><!--/span-->
 			</div><!--/row-->
+			
+			<div class="page-header">
+		    	<h1>Shop <small>Our selection</small></h1>
+		  	</div>
+		  	<div class="product-views">
+				<g:each var="product" in="${ products }">
+					<div class="product-preview well">
+				    	<h2>${product.name }</h2>
+				    	<br/>
+				    		<figure class="gallery-icon">
+								<img class="product-preview-photo" src="${product.pictureUrl }" alt="${product.name }" title="${product.name }">
+							</figure>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>						
+						<br/>
+						<br/>
+						<p>
+							<span class="product-preview-price"><g:formatNumber number="${product.price }" format="#####0.00€" /></span>
+							<br/>
+							<br/>
+							<g:link class="btn" action="show_product" in="${product.id}" params="[id: product.id]">View product</g:link>
+						</p>
+				  	</div><!--/span-->
+				</g:each>
+			</div>
 		</div>
+		
 	</body>
+	<script type="text/javascript">
+		$('.carousel').carousel({
+		  interval: 2000
+		})
+	</script>
 </html>          

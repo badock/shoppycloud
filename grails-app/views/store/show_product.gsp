@@ -56,7 +56,8 @@
 		<div class="span9">
 		
 			<div class="page-header">
-		    	<h1>${product.name } <small>${product.technicalSpecs }</small></h1>
+		    	<h1>${product.name }</h1>
+		    	<span id="div-tags">${product.technicalSpecs }</span>
 		  	</div>	
 			
 			<div class="product-description-preview">
@@ -118,7 +119,21 @@
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.js')}"></script>
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'showdown.js')}"></script>
 		<script type="text/javascript">	
-			function convert() {
+
+			function convert_tags() {
+			  
+			    var tagsArray = $("#div-tags").text().replace(" ","").split(",")
+			    var html = "";
+
+			    var i;
+				for(i=0;i<tagsArray.length;i++) {
+					html += "<span class=\"label\">"+tagsArray[i]+"</span> "
+				}
+			    
+			    $("#div-tags").html(html)
+			}
+			
+			function convert_markup() {
 				
 				var converter = new Showdown.converter();
 			  
@@ -128,8 +143,12 @@
 			}
 			
 			$(function() {			  
-			  convert();
+				convert_markup();
+				convert_tags();
 			});
+
+
+			
 		</script>
 	</body>
 </html>

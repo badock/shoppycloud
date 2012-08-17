@@ -7,7 +7,7 @@ class StoreController {
 	def customerService
 		
 	def index() {
-		render(view:"index", model: [controllerIndex:0, store:Shop.findById(request.store), categories: ProductMainClass.list()])
+		render(view:"index", model: [controllerIndex:0, store:Shop.findById(request.store), products:Product.list(), categories: ProductMainClass.list()])
 	}
 	
 	def show() {

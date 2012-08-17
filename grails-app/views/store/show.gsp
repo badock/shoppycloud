@@ -27,7 +27,7 @@
 			<div class="page-header">
 		    	<h1>Please select a category <small>here is a list of products</small></h1>
 		  	</div>
-		  		<div class="product-views">
+		  	<div class="product-views">
 				<g:each var="product" in="${ products }">
 					<div class="product-preview well">
 				    	<h2>${product.name }</h2>
@@ -53,7 +53,7 @@
 						</p>
 				  	</div><!--/span-->
 				</g:each>
-				</div>
+			</div>
 		</div>
 	</body>
 </html>   
