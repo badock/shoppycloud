@@ -8,20 +8,23 @@ class Product {
 	
 	String name
 	Double price
+	Double VAT = 0.196
 	
 	String pictureUrl
-	String technicalSpecs
-	String description
+	String tags
 	String markdownDescription
 	
 	static belongsTo = [category:ProductClass]
 	
     static constraints = {
+		name()
+		category()
+		price()
+		VAT()
     }
 	
 	
 	static mapping = {
-		description type: 'text'
 		markdownDescription type: 'text'
 	}
 	

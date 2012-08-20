@@ -1,45 +1,32 @@
-<% import grails.persistence.Event %>
 <%=packageName%>
 <!doctype html>
 <html>
 	<head>
 		<meta name="layout" content="admin">
 		<g:set var="entityName" value="\${message(code: '${domainClass.propertyName}.label', default: '${className}')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
-		<style type="text/css">
-			dd {
-				text-overflow:ellipsis;
-				white-space : normal;
-				word-wrap:break-word;
-			}
-		</style>
+		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 		<script type="text/javascript">	
 			function convert() {
 				
 				var converter = new Showdown.converter();
 			  
-			    var txt = ${'$'}("#markdown-description").html();
+			    var txt = ${'$'}("#markdown-editor").val();
 			    var html = converter.makeHtml(txt);
-			    ${'$'}("#markdown-description").html(html)
-			}
-
-			function displayMarkDown() {
-				var domModal = ${'$'}('#myModal').modal({
-			        backdrop: true, //Show a grey back drop
-			        //closeOnEscape: true, //Can close on escapes
-			        modal: true, //display it as a modal
-			    });
+			    ${'$'}("#result").html(html)
 			}
 			
-			${'$'}(function() {			  
-				convert();
-
-				//displayMarkDown();
+			${'$'}(function() {
+			  var converter = new Showdown.converter();
+			  ${'$'}("#markdown-editor").keyup(function(){
+			    convert();
+			  });
+			  
+			  convert();
 			});
 		</script>
 	</head>
 	<body>
-				
+		
 		<div class="span3">
 			<div class="well sidebar-nav">
 				<ul class="nav nav-list">
@@ -63,82 +50,38 @@
 		<div class="span9">
 			<div id="show-${domainClass.propertyName}" class="content scaffold-show" role="main">
 				<div class="page-header">	
-					<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+					<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
 					<g:if test="\${flash.message}">
 					<div class="message" role="status">\${flash.message}</div>
 					</g:if>
 				</div>
-				<dl>
-				<%  excludedProps = Event.allEvents.toList() << 'id' << 'version'
-					allowedNames = domainClass.persistentProperties*.name << 'dateCreated' << 'lastUpdated'
-					props = domainClass.properties.findAll { allowedNames.contains(it.name) && !excludedProps.contains(it.name) }
-					Collections.sort(props, comparator.constructors[0].newInstance([domainClass] as Object[]))
-					props.each { p -> %>
-					<g:if test="\${${propertyName}?.${p.name}}">
-						<dt><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" /></dt>
-						<%  if (p.isEnum()) { %>
-							<dd><g:fieldValue bean="\${${propertyName}}" field="${p.name}"/></dd>
-						<%  } else if (p.oneToMany || p.manyToMany) { %>
-							<g:each in="\${${propertyName}.${p.name}}" var="${p.name[0]}">
-							<dd><g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${p.name[0]}.id}">\${${p.name[0]}?.encodeAsHTML()}</g:link></dd>
-							</g:each>
-						<%  } else if (p.manyToOne || p.oneToOne) { %>
-							<dd><g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${propertyName}?.${p.name}?.id}">\${${propertyName}?.${p.name}?.encodeAsHTML()}</g:link></dd>
-						<%  } else if (p.type == Boolean || p.type == boolean) { %>
-							<dd><g:formatBoolean boolean="\${${propertyName}?.${p.name}}" /></dd>
-						<%  } else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar) { %>
-							<dd><g:formatDate date="\${${propertyName}?.${p.name}}" /></dd>
-						<%  } else if(p.name.toLowerCase().contains("price")) { %>
-							<dd><g:formatNumber number="\${${propertyName}?.${p.name}}" format="#####0.00€" /></dd>
-						<%  } else if(p.name.startsWith("markdown")) { %>
-							<dd>
-							
-							<a class="" href="#myModal" data-toggle="modal">click to preview "<g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />"</a></dd>
-							<div class="modal hide fade in" id="myModal">
-					            <div class="modal-header">
-					              <a data-dismiss="modal" class="close">×</a>
-					              <h3><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" /></h3>
-					            </div>
-					            <div class="modal-body">
-									<div id="markdown-description"><g:fieldValue bean="\${${propertyName}}" field="${p.name}"/></div>
-					            </div>
-					            <div class="modal-footer">
-					              <a data-dismiss="modal" class="btn" href="#">Close</a>
-					            </div>
-					          </div>
-						<%  } else if(p.name.startsWith("pictureUrl")) { %>
-						  <dd>
-						  
-						  <a class="" href="#myPictureModal" data-toggle="modal">click to preview "<g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />"</a></dd>
-						  <div class="modal hide fade in" id="myPictureModal">
-							  <div class="modal-header">
-								<a data-dismiss="modal" class="close">×</a>
-								<h3><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" /></h3>
-							  </div>
-							  <div class="modal-body">
-							  	<figure class="gallery-icon">
-								  <img class="product-photo" alt="\${${propertyName}?.${p.name}}" title="\${${propertyName}?.${p.name}}" src="\${${propertyName}?.${p.name}}"/></img>
-								</figure>
-							  </div>
-							  <div class="modal-footer">
-								<a data-dismiss="modal" class="btn" href="#">Close</a>
-							  </div>
-							</div>
-						<%  } else if(!p.type.isArray()) { %>
-							<dd><g:fieldValue bean="\${${propertyName}}" field="${p.name}"/></dd>
-						<%  } %>
-					</g:if>
-				<%  } %>
-				</dl>
-				<g:form>
-					<div class="form-actions">
-						<g:hiddenField name="id" value="\${${propertyName}?.id}" />
-						<g:link class="btn" action="edit" id="\${${propertyName}?.id}"><i class="icon-pencil"></i><g:message code="default.button.edit.label" default="Edit" /></g:link>
-						<g:link class="btn btn-danger" action="delete" onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" id="\${${propertyName}?.id}"><i class="icon-trash icon-white"></i><g:message code="default.button.delete.label" default="Delete" /></g:link>						
-					</div>
+				
+				<g:hasErrors bean="\${${propertyName}}">
+				<ul class="errors" role="alert">
+					<g:eachError bean="\${${propertyName}}" var="error">
+					<li <g:if test="\${error in org.springframework.validation.FieldError}">data-field-id="\${error.field}"</g:if>><g:message error="\${error}"/></li>
+					</g:eachError>
+				</ul>
+				</g:hasErrors>
+				<g:form method="post" action="update" <%= multiPart ? ' enctype="multipart/form-data"' : '' %>>
+					<g:hiddenField name="id" value="\${${propertyName}?.id}" />
+					<g:hiddenField name="version" value="\${${propertyName}?.version}" />
+					<fieldset class="form">
+						<g:render template="form"/>
+					</fieldset>
+					<%
+						def jquerySubmitCode = "document.getElementById('button_submit').click()"
+					%>					
+					<g:form>
+						<div class="form-actions">
+							<g:submitButton action="update" style="display:none" name="update" class="btn btn-primary" id="button_submit" value="\${message(code: 'default.button.update.label', default: 'Update')}" />
+							<g:link class="btn btn-primary" onclick="${jquerySubmitCode}" url="#" id="\${${propertyName}?.id}"><i class="icon-ok icon-white"></i><g:message code="default.button.update.label" default=" Update" /></g:link>
+							<g:link class="btn btn-danger" action="delete" onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" id="\${${propertyName}?.id}"><i class="icon-trash icon-white"></i><g:message code="default.button.delete.label" default=" Delete" /></g:link>						
+						</div>
+					</g:form>
+				
 				</g:form>
 			</div>
 		</div>
-		
 	</body>
 </html>

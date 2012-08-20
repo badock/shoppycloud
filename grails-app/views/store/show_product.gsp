@@ -57,7 +57,7 @@
 		
 			<div class="page-header">
 		    	<h1>${product.name }</h1>
-		    	<span id="div-tags">${product.technicalSpecs }</span>
+		    	<span id="div-tags">${product.tags }</span>
 		  	</div>	
 			
 			<div class="product-description-preview">

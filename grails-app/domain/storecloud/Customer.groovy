@@ -18,5 +18,12 @@ class Customer extends User {
 	String country
 	
     static constraints = {
+		email()
+		firstName()
+		lastName()
+		address()
+		city()
+		postalCode()
+		country()
     }
 }

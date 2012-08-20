@@ -114,7 +114,7 @@ class ${className}Controller {
 		flash.message = message(code: 'default.updated.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), ${propertyName}.id])
 		
 		//redirect(action: "show", id: ${propertyName}.id)
-		redirectToUrlWithTenant([action: "show", id: ${propertyName}.id])
+		redirectToUrlWithTenant([action: "edit", id: ${propertyName}.id])
     }
 
     def delete() {

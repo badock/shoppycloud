@@ -45,10 +45,10 @@
 							props = domainClass.properties.findAll { allowedNames.contains(it.name) && !excludedProps.contains(it.name) && it.type != null && !Collection.isAssignableFrom(it.type) }
 							Collections.sort(props, comparator.constructors[0].newInstance([domainClass] as Object[]))
 							props.eachWithIndex { p, i ->
-								if (i < 6) {
+								if (i < 15) {
 									if (p.isAssociation()) { %>
 							<th><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" /></th>
-						<%      } else { %>
+						<%      } else if (!p.name.toLowerCase().equals("password") && !p.name.toLowerCase().contains("tenant")) { %>
 							<g:sortableColumn property="${p.name}" title="\${message(code: '${domainClass.propertyName}.${p.name}.label', default: '${p.naturalName}')}" />
 						<%  }   }   } %>
 						</tr>
@@ -63,10 +63,11 @@
 							<td><g:formatDate date="\${${propertyName}.${p.name}}" /></td>
 						<%          } else if (p.name.toLowerCase().contains("price")) { %>
 							<td><g:formatNumber number="\${${propertyName}?.${p.name}}" format="#####0.00€" /></td>
+						<%          } else if (p.name.toLowerCase().equals("password") || p.name.toLowerCase().contains("tenant")) { %>
 						<%          } else { %>
 							<td>\${fieldValue(bean: ${propertyName}, field: "${p.name}")}</td>
 						<%  }   } %>
-							<td><g:link action="show" id="\${${propertyName}.id}">Show</g:link></td>
+							<td><g:link action="edit" id="\${${propertyName}.id}">edit</g:link></td>
 						</tr>
 					</g:each>
 					</tbody>

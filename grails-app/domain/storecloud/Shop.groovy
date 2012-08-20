@@ -16,6 +16,11 @@ class Shop implements Tenant {
 	String domain
 	static belongsTo = [account:ShoppyAccount]
 	
+	String paypalAccount = ""
+	String paypalPassword = ""
+	String paypalApiKey = ""
+	Boolean paypalProductionMode = false
+	
 	Integer tenantId() {
 		return this.id
 	}
@@ -24,6 +29,14 @@ class Shop implements Tenant {
     
 	static constraints = {
 		domain (unique: true, disabled: true)
-		theme (inList: ["amelia", "clean", "cerulean", "green", "united", "test"])
+		name()
+		account(display:false)
+		slogan()
+		shortDescription()
+		paypalAccount()
+		paypalPassword()
+		paypalApiKey()
+		paypalProductionMode()
+		theme (inList: ["amelia", "azure", "basic", "clean", "cerulean", "green", "united", "test"])
     }
 }

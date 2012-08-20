@@ -100,7 +100,7 @@
 	<div class="subnav subnav-fixed">
     	<ul class="nav nav-pills">
     		<li>
-				<g:link class="list" controller="shop" action="list">
+				<g:link class="list" controller="shop" action="edit">
 					Shop
 				</g:link>
 			</li>
