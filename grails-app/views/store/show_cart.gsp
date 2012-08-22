@@ -6,22 +6,10 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<div class="span3">
-			<div class="well sidebar-nav">
-				<ul class="nav nav-list">
-					<li class="nav-header">categories</li>
-					<g:each var="category" in="${categories}">
-						<li>
-							<g:link class="list" action="show_category" params="[id:category.id]">
-								<i class="icon-list"></i>
-								${category.name}
-							</g:link>
-						</li>
-					</g:each>
-				</ul>
-			</div>
-		</div>
 		
+		
+      	<g:render template="category_list"/>
+      		
 		<div class="span9">
 			
 				

@@ -107,8 +107,8 @@
 	<br/>
 	
     <div class="container-fluid">
-      <div class="row-fluid">                 
-          <g:layoutBody/>
+      <div class="row-fluid">		              
+         	<g:layoutBody/>
       </div><!--/row-->
 
       <hr>
