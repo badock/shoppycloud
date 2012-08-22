@@ -86,7 +86,7 @@
     	<ul class="nav nav-pills">
     		<g:each var="category_item" in="${categories}">
 				<g:if test="${parentProductClass!=null && category_item.id==parentProductClass.id }"><li class="active"></g:if><g:else><li></g:else>
-					<g:link class="list" action="show_category" params="[id:category_item.id]">
+					<g:link class="list" controller="store" action="show_category" params="[id:category_item.id]">
 						${category_item.name}
 					</g:link>
 				</li>

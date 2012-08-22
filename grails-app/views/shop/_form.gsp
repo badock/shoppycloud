@@ -66,6 +66,14 @@
 	<g:checkBox name="paypalProductionMode" value="${shopInstance?.paypalProductionMode}" />
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: shopInstance, field: 'paypalIsConfigured', 'error')} ">
+	<label for="paypalIsConfigured">
+		<g:message code="shop.paypalIsConfigured.label" default="Paypal Is Configured" />
+		
+	</label>
+	<g:checkBox disabled="true" name="paypalIsConfigured" value="${shopInstance?.paypalIsConfigured}" />
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: shopInstance, field: 'theme', 'error')} ">
 	<label for="theme">
 		<g:message code="shop.theme.label" default="Theme" />

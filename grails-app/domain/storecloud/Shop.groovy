@@ -20,6 +20,7 @@ class Shop implements Tenant {
 	String paypalPassword = ""
 	String paypalApiKey = ""
 	Boolean paypalProductionMode = false
+	Boolean paypalIsConfigured = false
 	
 	Integer tenantId() {
 		return this.id
@@ -37,6 +38,7 @@ class Shop implements Tenant {
 		paypalPassword()
 		paypalApiKey()
 		paypalProductionMode()
+		paypalIsConfigured(disabled: true)
 		theme (inList: ["amelia", "azure", "basic", "clean", "cerulean", "green", "united", "test"])
     }
 }

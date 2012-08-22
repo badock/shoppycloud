@@ -25,13 +25,13 @@ class PaymentService {
 
 	static transactional = true
 
-	def getTransactionTokenPaypal(CommercialOrder order, urlOk, urlKo) {
+	def getTransactionTokenPaypal(CommercialOrder order, urlOk, urlKo, shop) {
 
 
 
 		BigDecimal amountBD = 0
 
-		for (po in order.orders) {
+		for (po in  order.orders) {
 
 			amountBD += po.quantity*po.price
 		}
@@ -44,6 +44,27 @@ class PaymentService {
 		String totalAmount = amountBD.setScale(2, BigDecimal.ROUND_HALF_EVEN).toString();
 		String taxAmount = taxAmountBD.setScale(2, BigDecimal.ROUND_HALF_EVEN).toString();
 
+		String paypalAccount = "badock_1345224114_biz_api1.gmail.com"
+		String paypalPassword = "1345224140"
+		String paypalApiKey = "AsdaTfwqV5zJFyVHzJvIOfBBxDpmAnZVTLkV6jWsJs88az7mS0CdVW3Y"
+		
+		if(shop!=null) {
+			if(shop.paypalAccount!="" && shop.paypalPassword!="" && shop.paypalApiKey!="") {
+				
+				shop.paypalIsConfigured = true
+				shop.save()
+				
+				paypalAccount = shop.paypalAccount
+				paypalPassword = shop.paypalPassword
+				paypalApiKey = shop.paypalApiKey
+			}
+			else {
+				shop.paypalIsConfigured = false
+				shop.save()
+				throw new RuntimeException("Paypal information are not complete!")
+			}
+		}
+		
 		def user = order.customer
 
 		def urlPaypal = sprintf("USER=%s" +
@@ -81,9 +102,9 @@ class PaymentService {
 				"&BRANDNAME=%s"
 				,
 				//-------
-				"badock_1345224114_biz_api1.gmail.com",
-				"1345224140",
-				"AsdaTfwqV5zJFyVHzJvIOfBBxDpmAnZVTLkV6jWsJs88az7mS0CdVW3Y",
+				paypalAccount,
+				paypalPassword,
+				paypalApiKey,
 				"69.0", // API Version
 				"SetExpressCheckout", //Method
 				"Sale",
@@ -116,9 +137,14 @@ class PaymentService {
 				"1", //ADDROVERRIDE
 				"ShoppyCloud.com"
 				)
-
-		def url = new URL("https"+"://"+"api-3t.sandbox.paypal.com"+"/nvp?"+urlPaypal)
-
+		
+		def paypalMode = ".sandbox"
+		if(shop != null && shop.paypalProductionMode) {
+			paypalMode = ""
+		}
+		
+		def url = new URL("https"+"://"+"api-3t"+paypalMode+".paypal.com"+"/nvp?"+urlPaypal)
+		
 		def connection = url.openConnection()
 
 		BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()))
@@ -151,14 +177,22 @@ class PaymentService {
 			po.save(flush:true, failOnError:true)
 		}
 
-		def urlOk = "http://"+Shop.findById(order.tenantId).domain+"."+grailsApplication.config.grails.domainURL+"/payment/transaction_ok"
-		def urlKo = "http://"+Shop.findById(order.tenantId).domain+"."+grailsApplication.config.grails.domainURL+"/payment/transaction_ko"
+		def shop = Shop.findById(order.tenantId)
 		
-		def token = getTransactionTokenPaypal(order, urlOk, urlKo)
+		if(shop != null) {
+			def urlOk = "http://"+shop.domain+"."+grailsApplication.config.grails.domainURL+"/payment/transaction_ok"
+			def urlKo = "http://"+shop.domain+"."+grailsApplication.config.grails.domainURL+"/payment/transaction_ko"
+			
+			def token = getTransactionTokenPaypal(order, urlOk, urlKo, shop)
+			
+			if(token == null)
+				throw new RuntimeException("Paypal error: could not get a token!")
+				
+			return token
+		}
+		else {
+			throw new RuntimeException("Shop cannot be find <"+order.tenantId+">")
+		}		
 		
-		if(token == null)
-			throw new RuntimeException("Paypal error: could not get a token!")
-		
-		return token
 	}
 }
