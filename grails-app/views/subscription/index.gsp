@@ -90,7 +90,7 @@
 			}
 		}
 
-		xdr.open("GET", "/subscription/checkoverall/"+$("#input-email").val()+"-"+$("#input-domain").val());
+		xdr.open("GET", "/subscription/checkoverall/"+$("#input-email").val()+"-"+$("#input-domain").val()+"-"+$("#input-password").val());
 
 		if(domain.length>2) {
 			xdr.send();
@@ -112,7 +112,11 @@
 			</div>
 			<br/>
 			<div id="control-group-email" class="control-group">
-				<input id="input-email" type="text" class="input-xlarge" placeholder="Your email adress" onblur="doCheckEmail();"/>
+				<input id="input-email" type="text" class="input-xlarge" placeholder="Email" onblur="doCheckEmail();"/>
+			</div>
+			<br/>
+			<div id="control-group-password" class="control-group">
+				<input id="input-password" type="password" class="input-xlarge" placeholder="Password"/>
 			</div>
 			<br/>
 			<a class="btn btn-success btn-large" onclick="doCheckFinal();">Create your store now!</a>

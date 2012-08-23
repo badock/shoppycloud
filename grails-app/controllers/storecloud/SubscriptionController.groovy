@@ -39,11 +39,12 @@ class SubscriptionController {
 		def arrayOfParams = params.id.split("-");
 		def email = arrayOfParams[0]
 		def domain = arrayOfParams[1]
+		def password = arrayOfParams[2]
 		
 		def obj
 		if(!accountService.exist(email) && !shopService.exist(domain)) {
 			
-			subscriptionService.createRegistration(email, domain)
+			subscriptionService.createRegistration(email, domain, password)
 			
 			obj = [result:true] as JSON
 		}			

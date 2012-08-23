@@ -10,11 +10,11 @@ class AccountService {
 			return true
     }
 	
-	def createAccount(email) {
+	def createAccount(email,password) {
 		
 		if(!exist(email)) {
 			
-			ShoppyAccount account = new ShoppyAccount(email:email, firstName:"", lastName:"").save(failOnError: true)
+			ShoppyAccount account = new ShoppyAccount(email:email, password:password, firstName:"", lastName:"").save(failOnError: true)
 			return account
 		}
 		

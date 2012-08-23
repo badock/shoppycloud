@@ -13,7 +13,7 @@ class ShopService {
 			return true
     }
 	
-	def createShop(domain, account) {
+	def createShop(domain, account, password) {
 		
 		if(!exist(domain)) {
 			
@@ -22,12 +22,12 @@ class ShopService {
 			store.withThisTenant {
 				
 				// USER AUTHENTICATION
-				def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
+				def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnccouError: true)
 				
 				
 				def adminUser = new User(
-					username: 'admin',
-					password: 'admin',
+					username: account.email,
+					password: password,
 					enabled: true).save(failOnError: true)
 				// </store1>
 					

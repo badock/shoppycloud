@@ -163,7 +163,7 @@ class StoreController {
 		def customer = null
 		
 		try {
-			customer = customerService.createCustomer(params.email, "password", params.firstname, params.lastname, params.address, params.city, params.postalcode, params.country, Shop.findById(request.store))
+			customer = customerService.createCustomer(params.email, params.password, params.firstname, params.lastname, params.address, params.city, params.postalcode, params.country, Shop.findById(request.store))
 		}
 		catch (Exception e) {
 			log.println(e.toString())
@@ -172,7 +172,7 @@ class StoreController {
 		if(customer==null) {
 			
 			def email = params.email
-			
+			def password = params.password
 			def firstname = params.firstname
 			def lastname = params.lastname
 			def address = params.address

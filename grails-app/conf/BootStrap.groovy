@@ -32,8 +32,8 @@ class BootStrap {
 					//
 
 					// CREATION OF MOCK DATA
-					ShoppyAccount firstAccount = new ShoppyAccount(id:1, email:"jonathancmoa@gmail.com", firstName:"Jonathan", lastName:"Pastor").save(failOnError: true)
-					ShoppyAccount secondAccount = new ShoppyAccount(id:2, email:"lukeskywalker@msn.com", firstName:"Luke", lastName:"Skywalker").save(failOnError: true)
+					ShoppyAccount firstAccount = new ShoppyAccount(id:1, email:"jonathancmoa@gmail.com", password:"password",firstName:"Jonathan", lastName:"Pastor").save(failOnError: true)
+					ShoppyAccount secondAccount = new ShoppyAccount(id:2, email:"lukeskywalker@msn.com", password:"password",firstName:"Luke", lastName:"Skywalker").save(failOnError: true)
 
 					// STORE INFORMATION
 					Shop thisStore = new Shop(id:1, name:"Boutique de test1", account:firstAccount, domain:"app1", slogan:"Welcome in our Shop(1)", shortDescription:"We sell a lot of different products. Please take a look at them and do not hesitate to contact us!").save(failOnError: true)

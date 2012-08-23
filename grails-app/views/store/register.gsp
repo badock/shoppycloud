@@ -35,6 +35,12 @@
 				            </div>
 				        </div>
 						<div class="control-group">
+				            <label class="control-label" for="inputEmail">Password</label>
+				            <div class="controls">
+				              <input name="password" type="password" class="input-xlarge" id="inputPassword" value="${password }"/>
+				            </div>
+				        </div>
+						<div class="control-group">
 				            <label class="control-label" for="inputAddress">Address</label>
 				            <div class="controls">
 				              <input name="address" type="text" class="input-xlarge" id="inputAddress" value="${address }"/>
