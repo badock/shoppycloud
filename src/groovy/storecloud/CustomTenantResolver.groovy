@@ -12,26 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 class CustomTenantResolver implements TenantResolver {
 
     Integer resolve(HttpServletRequest request) throws TenantResolveException {
-//        String host = request.getServerName() 
-//        switch (host) { 
-//            case "app1.storeapp.com": 
-//                return 1
-//            case "app2.storeapp.com": 
-//                return 2
-//            case "app3.storeapp.com":
-//                return 3
-//
-//            default:
-//                // WARNING: Returning null will disable the Hibernate filter
-//                // don't do this unless you know what you're doing! 
-//                return null  
-//        }
-		
-		def truc = request.serverName.count(".")
 		
 		if(request.serverName.count(".") != 2) {
 			
-			request.store = 0
+			request.store = -1
 			request.domain = "StoreApp"
 			return 0
 			
