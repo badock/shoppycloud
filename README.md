@@ -66,8 +66,8 @@ The administration part enables administrators to manage:
 
 Here are some screens of the administration section
 
-![admin screen](https://raw.github.com/badock/storecloud/blob/master/img_github/app2_admin_shop.png "admin screen")
+![admin screen](https://raw.github.com/badock/storecloud/master/img_github/app2_admin_shop.png "admin screen")
 
-![admin screen](https://raw.github.com/badock/storecloud/blob/master/img_github/app2_edit_product.png "admin screen")
+![admin screen](https://raw.github.com/badock/storecloud/master/img_github/app2_edit_product.png "admin screen")
 
-![admin screen](https://raw.github.com/badock/storecloud/blob/master/img_github/app2_edit_classes.png "admin screen")
+![admin screen](https://raw.github.com/badock/storecloud/master/img_github/app2_edit_classes.png "admin screen")
