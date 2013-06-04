@@ -38,7 +38,7 @@ grails run-app
 
 There is a proof of concept of this project that is now running: two applications are running: app1 and app2.
 
-Please had the following lines in you /etc/hosts file:
+Please add the following lines in you /etc/hosts file:
 
 ```bash
 127.0.0.1       app1.shoppycloud.com
